@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPS_Query_Tests", "SPS_Query_Tests\SPS_Query_Tests.csproj", "{2B1308FE-3421-4CFB-BA64-2431FABD2EBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B1308FE-3421-4CFB-BA64-2431FABD2EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B1308FE-3421-4CFB-BA64-2431FABD2EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B1308FE-3421-4CFB-BA64-2431FABD2EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B1308FE-3421-4CFB-BA64-2431FABD2EBB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E5CC1EF-8917-43BF-9DA7-AE4157225C9A}
+	EndGlobalSection
+EndGlobal
