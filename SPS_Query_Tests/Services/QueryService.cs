@@ -56,6 +56,7 @@ namespace SPS_Query_Tests.Services
                     else
                     {
                         Console.WriteLine($"Sharepoint Search returned a Null response with no data! Current Context Correlation Id: {context.TraceCorrelationId}");
+                        break;
                     }
                 }
                 catch (Exception ex)

@@ -14,7 +14,6 @@ namespace SPS_Query_Tests.Services
         {
             var client = new RestClient($"{Authority}/{HttpUtility.UrlEncode(tenantId)}/tokens/OAuth/2");
 
-
             var request = new RestRequest();
             request.AddParameter("grant_type", "client_credentials");
             request.AddParameter("client_id", $"{clientId}@{tenantId}");

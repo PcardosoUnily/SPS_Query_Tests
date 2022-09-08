@@ -41,7 +41,7 @@ context.ExecuteQuery();
 Console.WriteLine($"Connected to {context.Web.Title}");
 Console.WriteLine();
 
-// Set how many time you want the configured query to run for
+// Set how many times you want the configured query to run for
 int loops = 1;
 for (int i = 1; i <= loops; i++)
 {
