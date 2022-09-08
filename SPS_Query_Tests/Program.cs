@@ -9,7 +9,6 @@ const string siteUri = ""; // Site Uri
 const string resultSourceId = ""; // Sharepoint Result Source GUID used for the Query
 
 // Define Query Parameters
-// If using docId for pagination, make sure to include IndexDocId in selected properties
 // see: https://docs.microsoft.com/en-us/sharepoint/dev/general-development/pagination-for-large-result-sets
 Dictionary<string, string> queryParameters = new()
 {
