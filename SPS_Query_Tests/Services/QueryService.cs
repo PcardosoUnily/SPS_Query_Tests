@@ -15,12 +15,11 @@ namespace SPS_Query_Tests.Services
             var paginationProperty = queryParameters[PaginationProperty];
             var lastIndexDocId = string.Empty;
             int rowsRetrieved = 0;
-            int rowsToRetrieve = 1;
-            int totalRows = 0;
+            int totalRows = 1;
             ResultTable results;
 
             var correlationId = string.Empty;
-            while (rowsToRetrieve != 0)
+            while (totalRows != 0)
             {
                 try
                 {
@@ -51,7 +50,6 @@ namespace SPS_Query_Tests.Services
 
                         rowsRetrieved += results.RowCount;
                         totalRows = results.TotalRows;
-                        rowsToRetrieve = results.TotalRows;
 
                         Console.WriteLine($"{rowsRetrieved} Total Rows retrieved. {totalRows} Rows left to retrieve. CorrelationId: {correlationId}");
                     }
@@ -69,10 +67,6 @@ namespace SPS_Query_Tests.Services
                 }
 
             }
-        }
-        private static string ToStringNullSafe(this object value)
-        {
-            return (value ?? string.Empty).ToString();
         }
     }
 }
