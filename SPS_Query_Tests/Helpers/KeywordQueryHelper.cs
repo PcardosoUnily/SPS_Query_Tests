@@ -1,13 +1,11 @@
 ﻿using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Search.Query;
+using SPS_Query_Tests.Constants;
 
 namespace SPS_Query_Tests.Helpers
 {
     public static class KeywordQueryHelper
     {
-        private const string SortListProperty = "SortListProperty";
-        private const string PaginationProperty = "PaginationProperty";
-
         public static KeywordQuery BuildQuery(ClientContext context, Dictionary<string, string> queryProperties)
         {
             var keywordQuery = new KeywordQuery(context)
@@ -20,12 +18,12 @@ namespace SPS_Query_Tests.Helpers
                 EnableSorting = true
             };
 
-            keywordQuery.SortList.Add(queryProperties[SortListProperty], SortDirection.Ascending);
-            keywordQuery.SelectProperties.Add(queryProperties[PaginationProperty]);
+            keywordQuery.SortList.Add(queryProperties[QueryConstants.SortListProperty], SortDirection.Ascending);
+            keywordQuery.SelectProperties.Add(queryProperties[QueryConstants.PaginationProperty]);
 
             foreach (var prop in queryProperties[nameof(KeywordQuery.SelectProperties)].Split(','))
             {
-                if (prop != SortListProperty && prop != PaginationProperty)
+                if (prop != QueryConstants.SortListProperty && prop != QueryConstants.PaginationProperty)
                 {
                     keywordQuery.SelectProperties.Add(prop);
                 }
