@@ -19,7 +19,8 @@ namespace SPS_Query_Tests.Helpers
             };
 
             keywordQuery.SortList.Add(queryProperties[QueryConstants.SortListProperty], SortDirection.Ascending);
-            keywordQuery.SelectProperties.Add(queryProperties[QueryConstants.PaginationProperty]);
+            keywordQuery.SelectProperties.Add(queryProperties[QueryConstants.SortListProperty]);
+            keywordQuery.SelectProperties.Add(queryProperties[QueryConstants.PaginationProperty].Trim('[', ']').Trim());
 
             foreach (var prop in queryProperties[nameof(KeywordQuery.SelectProperties)].Split(','))
             {

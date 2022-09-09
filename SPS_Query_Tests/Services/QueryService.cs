@@ -1,33 +1,37 @@
 ﻿using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Search.Query;
+using SPS_Query_Tests.Constants;
 using SPS_Query_Tests.Helpers;
 
 namespace SPS_Query_Tests.Services
 {
     public static class QueryService
     {
-        private const string QueryTextProperty = "QueryText";
-        private const string PaginationProperty = "PaginationProperty";
-
         public static void RunSearchQuery(ClientContext context, Dictionary<string, string> queryParameters)
         {
-            var initialQueryText = queryParameters[QueryTextProperty];
-            var paginationProperty = queryParameters[PaginationProperty];
-            var lastIndexDocId = string.Empty;
+            var correlationId = string.Empty;
+            var initialQueryText = queryParameters[QueryConstants.QueryTextProperty];
+            var paginationProperty = queryParameters[QueryConstants.PaginationProperty];
+            var lastDocId = string.Empty;
             int rowsRetrieved = 0;
             int totalRows = 1;
             ResultTable results;
 
-            var correlationId = string.Empty;
-            while (totalRows != 0)
+            // For some reason, the MS Docs have us set the SortList property value as [DocId] but that's not the actual key value of the property returned
+            // We must thus sanitize this value to make sure we can retrieve the property from the results
+            // This is quite janky, once again refer to: https://docs.microsoft.com/en-us/sharepoint/dev/general-development/pagination-for-large-result-sets
+            // See confirmation: https://github.com/SharePoint/sp-dev-docs/issues/8426
+            var sanitizedPaginationProp = queryParameters[QueryConstants.SortListProperty].Trim('[', ']').Trim();
+
+            do
             {
                 try
                 {
                     var executor = new SearchExecutor(context);
                     var query = KeywordQueryHelper.BuildQuery(context, queryParameters);
-                    if (!string.IsNullOrEmpty(lastIndexDocId))
+                    if (!string.IsNullOrEmpty(lastDocId))
                     {
-                        query.QueryText = $"{initialQueryText} AND {paginationProperty}>{lastIndexDocId}";
+                        query.QueryText = $"{paginationProperty}>{lastDocId} AND {initialQueryText}";
                     }
 
                     Console.WriteLine($"Executing SP query. Query text: {query.QueryText}");
@@ -46,10 +50,13 @@ namespace SPS_Query_Tests.Services
                         }
 
                         results = response.Value.Single(table => table.TableType == "RelevantResults");
-                        lastIndexDocId = results.ResultRows.Last()[paginationProperty].ToString();
-
-                        rowsRetrieved += results.RowCount;
                         totalRows = results.TotalRows;
+                        rowsRetrieved += results.RowCount;
+
+                        if (totalRows != 0)
+                        {
+                            lastDocId = results.ResultRows.Last()[sanitizedPaginationProp].ToString();
+                        }
 
                         Console.WriteLine($"{rowsRetrieved} Total Rows retrieved. {totalRows} Rows left to retrieve. CorrelationId: {correlationId}");
                     }
@@ -67,7 +74,7 @@ namespace SPS_Query_Tests.Services
                     break;
                 }
 
-            }
+            } while (totalRows != 0);
         }
     }
 }
