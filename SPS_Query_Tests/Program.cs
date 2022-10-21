@@ -7,6 +7,7 @@ const string clientId = ""; // SPO Service Principal Id (GUID)
 const string clientSecret = ""; // SPO Service Principal Secret
 const string siteUri = ""; // Site Uri
 const string resultSourceId = ""; // Sharepoint Result Source GUID used for the Query
+const string exportPath = ""; // Local file path to save the request data
 
 // Define Query Parameters
 // see: https://docs.microsoft.com/en-us/sharepoint/dev/general-development/pagination-for-large-result-sets
@@ -49,7 +50,7 @@ for (int i = 1; i <= loops; i++)
     Console.WriteLine();
 
     // Execute Query
-    QueryService.RunSearchQuery(context, queryParameters);
+    QueryService.RunSearchQuery(context, queryParameters, exportPath);
 
     Console.WriteLine();
     Console.WriteLine($"Finished Running Query Loop: {i}");
