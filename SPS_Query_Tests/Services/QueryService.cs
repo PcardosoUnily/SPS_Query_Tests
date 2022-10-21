@@ -99,7 +99,7 @@ namespace SPS_Query_Tests.Services
                     break;
                 }
             } 
-            while (totalRows == 0);
+            while (totalRows != 0);
 
             string path = $"{exportPath.TrimEnd('/').Trim()}\\{queryId}.json";
             Console.WriteLine($"Exporting Query data to {path}");
